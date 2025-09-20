@@ -18,11 +18,27 @@ const outcomes = {
   SP: "YOU"
 };
 
-// Scoreboard values
 let userScore = 0;
 let botScore = 0;
 const userScoreDisplay = document.getElementById("userScore");
 const botScoreDisplay = document.getElementById("botScore");
+
+const resetButton = document.getElementById("resetButton");
+
+resetButton.addEventListener("click", () => {
+    userScore = 0;
+    botScore = 0;
+    userScoreDisplay.textContent = userScore;
+    botScoreDisplay.textContent = botScore;
+
+    result.textContent = "Let's Play!";
+    result.className = "result";
+    userResult.src = "images/rock.png";
+    botResult.src = "images/rock.png";
+
+    optionImages.forEach(image => image.classList.remove("active"));
+});
+
 
 function handleOptionClick(event) {
   const clickedImage = event.currentTarget;
@@ -40,7 +56,6 @@ function handleOptionClick(event) {
   setTimeout(() => {
     gameContainer.classList.remove("start");
 
-    // Choices
     const userImageSrc = clickedImage.querySelector("img").src;
     userResult.src = userImageSrc;
     const randomNumber = Math.floor(Math.random() * botImages.length);
@@ -52,7 +67,6 @@ function handleOptionClick(event) {
     const outcomeKey = userValue + botValue;
     const outcome = outcomes[outcomeKey] || "Unknown";
 
-    // Result + Score update
     if (userValue === botValue) {
       result.textContent = "Match Draw";
       result.className = "result";
